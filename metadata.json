@@ -1,0 +1,8 @@
+{
+  "name": "Vibe Life Stimulator",
+  "description": "An AI-powered life simulation and skill acquisition engine that gamifies real-world exam prep and career paths with episodic memory management.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
