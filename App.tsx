@@ -69,12 +69,16 @@ const App: React.FC = () => {
       setIsSetup(false);
       setShowSettlement(false);
     } catch (error: any) {
+      console.error("Simulation start error:", error);
+      
       if (error?.message?.includes('429')) {
-        alert("System limit reached. Please use your Personal Key for uninterrupted simulation.");
-        //@ts-ignore
-        if (window.aistudio) window.aistudio.openSelectKey();
+        alert("Rate limit reached. Please try again in a moment or use a different API key.");
+      } else if (error?.message?.includes('API request failed')) {
+        alert("API Error: " + error.message + "\n\nPlease check:\n1. Your OpenRouter API key is valid\n2. The API key has credits\n3. Try refreshing the page");
+      } else if (error?.message?.includes('invalid response structure')) {
+        alert("The AI returned an invalid response. This can happen with free models. Please try again or check the browser console for details.");
       } else {
-        alert("Sync error. Please try again.");
+        alert("Sync error: " + (error.message || "Unknown error") + "\n\nPlease check the browser console (F12) for more details and try again.");
       }
     } finally {
       setLoading(false);
@@ -111,8 +115,9 @@ const App: React.FC = () => {
         };
       });
       setLastResponse(response);
-    } catch (e) {
-      console.error(e);
+    } catch (error: any) {
+      console.error("Turn processing error:", error);
+      alert("Failed to process your action: " + (error.message || "Unknown error") + "\n\nPlease try again or check the console for details.");
     } finally {
       setLoading(false);
     }
