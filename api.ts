@@ -22,7 +22,7 @@ export default async function handler(req: any, res: any) {
   }
 
   const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
-  const DEFAULT_MODEL = process.env.OPENROUTER_MODEL || 'deepseek/deepseek-r1';
+  const DEFAULT_MODEL = process.env.OPENROUTER_MODEL || 'xiaomi/mimo-v2-flash:free';
 
   if (!OPENROUTER_API_KEY) {
     res.status(500).json({ error: 'Missing OPENROUTER_API_KEY on server' });
